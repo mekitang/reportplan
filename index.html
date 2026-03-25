@@ -1134,6 +1134,141 @@ input:focus, textarea:focus, select:focus {
   margin-top: 24px;
 }
 
+/* ===== AI TAB STYLES ===== */
+.ai-tab-btn { background: transparent; color: var(--text-light); }
+.ai-tab-btn.active { background: white; color: var(--primary); box-shadow: var(--shadow); }
+
+.score-card {
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  text-align: center;
+}
+.score-card .sc-val {
+  font-family: 'Jua', sans-serif;
+  font-size: 28px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.score-card .sc-label { font-size: 11px; color: var(--text-light); font-weight: 700; }
+
+/* ===== STUDENT SUBMISSION CARD ===== */
+.stu-sub-card {
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all .2s;
+  gap: 16px;
+}
+.stu-sub-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow); }
+
+.stu-sub-card .ss-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Jua', sans-serif;
+  font-size: 20px;
+  color: white;
+  flex-shrink: 0;
+}
+.stu-sub-card .ss-info { flex: 1; }
+.stu-sub-card .ss-name { font-size: 16px; font-weight: 800; margin-bottom: 3px; }
+.stu-sub-card .ss-meta { font-size: 12px; color: var(--text-light); }
+
+.stu-sub-card .ss-stats {
+  display: flex; gap: 16px; align-items: center; flex-shrink: 0;
+}
+.stu-sub-card .ss-stat { text-align: center; }
+.stu-sub-card .ss-stat-val { font-family: 'Jua', sans-serif; font-size: 22px; color: var(--primary); line-height: 1; }
+.stu-sub-card .ss-stat-label { font-size: 10px; color: var(--text-light); font-weight: 700; margin-top: 2px; }
+
+/* progress bar for mc rate */
+.mc-bar-wrap { background: var(--bg); border-radius: 50px; height: 10px; flex: 1; overflow: hidden; }
+.mc-bar-fill { height: 100%; border-radius: 50px; background: linear-gradient(90deg, var(--primary), var(--primary-light)); transition: width .5s; }
+
+/* ===== DETAIL SUBMISSION ===== */
+.detail-sub-card {
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.detail-sub-header {
+  background: linear-gradient(135deg, var(--bg), #EDF2F7);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-bottom: 2px solid var(--border);
+  cursor: pointer;
+}
+.detail-sub-body { padding: 20px; }
+
+.writing-section {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.writing-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.writing-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 6px;
+}
+.writing-text {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--text);
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.mc-result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+  gap: 6px;
+  margin-top: 8px;
+}
+.mc-dot {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800;
+  color: white;
+}
+.mc-dot.correct { background: var(--success); }
+.mc-dot.wrong { background: var(--danger); }
+.mc-dot.unanswered { background: #CBD5E0; color: #718096; }
+
+/* feedback bubble */
+.fb-bubble {
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-top: 8px;
+}
+.fb-teacher { background: rgba(255,230,109,.15); border-left: 4px solid var(--accent); }
+.fb-ai { background: rgba(78,205,196,.1); border-left: 4px solid var(--secondary); }
+.fb-analysis { background: rgba(168,230,207,.15); border-left: 4px solid var(--accent2); }
+.fb-rewrite { background: rgba(255,107,53,.07); border-left: 4px solid var(--primary); }
+.fb-label { font-size: 11px; font-weight: 800; margin-bottom: 5px; letter-spacing: .3px; }
+
 /* ===== PRINT / PDF ===== */
 @media print {
   .sidebar, .topbar, .step-nav, .btn-primary, .btn-secondary,
@@ -1589,19 +1724,48 @@ input:focus, textarea:focus, select:focus {
 
         <!-- PANEL: SUBMISSIONS -->
         <div class="admin-panel" id="panel-submissions">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
-            <h3 style="font-family:'Jua',sans-serif; font-size:20px;">학생 제출물 확인</h3>
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <select id="filter-student" style="width:150px;" onchange="filterSubmissions()">
-                <option value="">전체 학생</option>
-              </select>
-              <select id="filter-date" style="width:150px;" onchange="filterSubmissions()">
-                <option value="">전체 날짜</option>
-              </select>
-              <button class="btn-outline" onclick="downloadAllPDF()">📥 전체 PDF</button>
+          <!-- 학생 목록 선택 뷰 -->
+          <div id="sub-student-list-view">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+              <h3 style="font-family:'Jua',sans-serif; font-size:20px;">학생별 제출물 확인</h3>
+              <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <input type="text" id="sub-search-input" placeholder="학생 이름 검색..." style="width:180px;" oninput="renderStudentSubmissionList()">
+                <button class="btn-outline" onclick="downloadAllPDF()">📥 전체 PDF</button>
+              </div>
             </div>
+            <div id="student-submission-cards"></div>
           </div>
-          <div id="submissions-list"></div>
+
+          <!-- 개별 학생 상세 뷰 -->
+          <div id="sub-detail-view" class="hidden">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+              <div style="display:flex; align-items:center; gap:12px;">
+                <button onclick="backToStudentList()" style="background:var(--bg); border:2px solid var(--border); border-radius:50px; padding:8px 16px; font-size:13px; font-weight:700; cursor:pointer;">← 목록으로</button>
+                <div>
+                  <h3 id="detail-student-name" style="font-family:'Jua',sans-serif; font-size:20px;"></h3>
+                  <p id="detail-student-info" style="font-size:13px; color:var(--text-light); margin-top:2px;"></p>
+                </div>
+              </div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                <select id="detail-filter-date" style="width:170px;" onchange="renderDetailSubmissions()">
+                  <option value="">전체 날짜</option>
+                </select>
+                <button class="btn-outline" onclick="downloadStudentPDFAll()">📥 전체 PDF</button>
+              </div>
+            </div>
+
+            <!-- 학생 통계 카드 -->
+            <div id="detail-stats" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px; margin-bottom:20px;"></div>
+
+            <!-- 객관식 정답률 섹션 -->
+            <div class="card" style="margin-bottom:20px;" id="detail-mc-section">
+              <h4 style="font-family:'Jua',sans-serif; font-size:16px; margin-bottom:14px;">📊 객관식 정답률 분석</h4>
+              <div id="detail-mc-chart"></div>
+            </div>
+
+            <!-- 제출물 목록 -->
+            <div id="detail-submissions-list"></div>
+          </div>
         </div>
 
         <!-- PANEL: QUESTIONS -->
@@ -1776,23 +1940,93 @@ input:focus, textarea:focus, select:focus {
 
 <!-- AI Comment Modal -->
 <div id="modal-ai-comment" class="modal-overlay hidden">
-  <div class="modal" style="max-width:640px;">
-    <h3>🤖 AI 피드백 생성</h3>
-    <div id="ai-target-content" style="background:var(--bg); border-radius:var(--radius-sm); padding:12px 16px; font-size:14px; line-height:1.7; margin-bottom:16px; max-height:200px; overflow-y:auto;"></div>
-    <div id="ai-comment-result" style="display:none;">
-      <div class="ai-comment">
-        <div class="ai-comment-header">🤖 AI 피드백</div>
-        <div id="ai-comment-text"></div>
+  <div class="modal" style="max-width:740px; padding:28px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px;">
+      <div>
+        <h3 style="font-size:20px; margin-bottom:4px;">💬 AI 글쓰기 피드백</h3>
+        <p id="modal-student-label" style="font-size:13px; color:var(--text-light);"></p>
+      </div>
+      <button onclick="closeModal('modal-ai-comment')" style="background:var(--bg); border:2px solid var(--border); border-radius:50%; width:32px; height:32px; font-size:16px; cursor:pointer;">✕</button>
+    </div>
+
+    <!-- 학생 원문 -->
+    <div style="margin-bottom:16px;">
+      <div style="font-size:12px; font-weight:700; color:var(--text-light); margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px;">학생이 작성한 글</div>
+      <div id="ai-target-content" style="background:var(--bg); border-radius:var(--radius-sm); padding:14px 16px; font-size:14px; line-height:1.8; max-height:180px; overflow-y:auto; border:2px solid var(--border); white-space:pre-wrap;"></div>
+    </div>
+
+    <!-- AI 기능 탭 -->
+    <div style="display:flex; gap:4px; background:var(--bg); padding:4px; border-radius:var(--radius-sm); margin-bottom:16px;">
+      <button class="ai-tab-btn active" id="ai-tab-analysis" onclick="switchAITab('analysis')" style="flex:1; padding:9px; border-radius:var(--radius-sm); font-size:13px; font-weight:700; border:none; cursor:pointer; transition:.2s;">🔍 글 분석</button>
+      <button class="ai-tab-btn" id="ai-tab-rewrite" onclick="switchAITab('rewrite')" style="flex:1; padding:9px; border-radius:var(--radius-sm); font-size:13px; font-weight:700; border:none; cursor:pointer; transition:.2s;">✨ 논술 재구성</button>
+      <button class="ai-tab-btn" id="ai-tab-manual" onclick="switchAITab('manual')" style="flex:1; padding:9px; border-radius:var(--radius-sm); font-size:13px; font-weight:700; border:none; cursor:pointer; transition:.2s;">✏️ 직접 피드백</button>
+    </div>
+
+    <!-- TAB: 글 분석 -->
+    <div id="ai-panel-analysis">
+      <div style="background:linear-gradient(135deg,rgba(78,205,196,.08),rgba(78,205,196,.03)); border:2px solid rgba(78,205,196,.3); border-radius:var(--radius-sm); padding:14px 16px; font-size:13px; color:var(--text-light); margin-bottom:12px; line-height:1.7;">
+        🔍 학생의 글을 AI가 분석하여 <strong>잘된 점, 부족한 점, 개선 방향</strong>을 구체적으로 알려드립니다.
+      </div>
+      <div id="analysis-result" style="display:none;">
+        <!-- 점수 카드 -->
+        <div id="score-cards" style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:14px;"></div>
+        <!-- 상세 분석 -->
+        <div id="analysis-detail" style="background:white; border:2px solid var(--border); border-radius:var(--radius-sm); padding:16px; font-size:14px; line-height:1.9; white-space:pre-wrap;"></div>
+      </div>
+      <div style="display:flex; gap:8px; margin-top:12px;">
+        <button class="btn-secondary" onclick="runAnalysis()" style="flex:1;">🔍 글 분석하기</button>
+        <button onclick="saveAnalysisToFeedback()" id="btn-apply-analysis" style="flex:1; background:var(--bg); border:2px solid var(--border); border-radius:50px; font-size:14px; font-weight:700; cursor:pointer; display:none;">📋 분석 결과를 피드백에 적용</button>
       </div>
     </div>
-    <div id="manual-comment-area" style="margin-top:16px;">
-      <label style="font-size:14px; font-weight:700; display:block; margin-bottom:8px;">✏️ 직접 피드백 작성</label>
-      <textarea id="manual-comment" style="min-height:120px;" placeholder="학생에게 직접 피드백을 작성하세요..."></textarea>
+
+    <!-- TAB: 논술 재구성 -->
+    <div id="ai-panel-rewrite" class="hidden">
+      <div style="background:linear-gradient(135deg,rgba(255,107,53,.08),rgba(255,107,53,.03)); border:2px solid rgba(255,107,53,.3); border-radius:var(--radius-sm); padding:14px 16px; font-size:13px; color:var(--text-light); margin-bottom:12px; line-height:1.7;">
+        ✨ 학생의 글을 <strong>논리 구조(서론-본론-결론)에 맞게 재구성</strong>합니다. 학생이 쓴 내용을 살리면서 더 설득력 있는 글로 다듬어드립니다.
+      </div>
+      <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+        <select id="rewrite-style" style="flex:1; min-width:140px;">
+          <option value="논술">논술형 재구성</option>
+          <option value="설명문">설명문 재구성</option>
+          <option value="주장문">주장문 재구성</option>
+        </select>
+        <select id="rewrite-grade" style="flex:1; min-width:120px;">
+          <option value="3">3학년 수준</option>
+          <option value="4">4학년 수준</option>
+          <option value="5">5학년 수준</option>
+          <option value="6">6학년 수준</option>
+        </select>
+      </div>
+      <div id="rewrite-result" style="display:none; margin-bottom:12px;">
+        <div style="font-size:12px; font-weight:700; color:var(--primary); margin-bottom:6px;">✨ AI 재구성 결과</div>
+        <div id="rewrite-text" style="background:white; border:2px solid var(--primary); border-radius:var(--radius-sm); padding:16px; font-size:14px; line-height:1.9; white-space:pre-wrap; max-height:260px; overflow-y:auto;"></div>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <button onclick="copyRewrite()" style="background:var(--bg); border:2px solid var(--border); border-radius:50px; padding:7px 14px; font-size:12px; font-weight:700; cursor:pointer;">📋 복사</button>
+          <button onclick="applyRewriteToFeedback()" style="background:rgba(255,107,53,.1); border:2px solid var(--primary); color:var(--primary); border-radius:50px; padding:7px 14px; font-size:12px; font-weight:700; cursor:pointer;">📝 피드백에 포함</button>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="runRewrite()" style="width:100%;">✨ 논술 재구성하기</button>
     </div>
-    <div class="modal-buttons">
-      <button class="btn-outline" onclick="closeModal('modal-ai-comment')">취소</button>
-      <button class="btn-secondary" onclick="generateAIComment()">🤖 AI 생성</button>
-      <button class="btn-primary" onclick="saveComment()">피드백 저장</button>
+
+    <!-- TAB: 직접 피드백 -->
+    <div id="ai-panel-manual" class="hidden">
+      <div style="margin-bottom:12px;">
+        <div style="font-size:13px; font-weight:700; margin-bottom:6px;">🤖 AI 기본 피드백 (저장된 내용)</div>
+        <div id="ai-saved-feedback" style="background:linear-gradient(135deg,rgba(78,205,196,.08),rgba(78,205,196,.03)); border-left:4px solid var(--secondary); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:12px 14px; font-size:13px; line-height:1.8; color:var(--text); min-height:40px;"></div>
+      </div>
+      <div>
+        <div style="font-size:13px; font-weight:700; margin-bottom:6px;">✏️ 선생님 직접 피드백</div>
+        <textarea id="manual-comment" style="min-height:130px; width:100%;" placeholder="학생에게 전달할 피드백을 직접 작성하세요...&#10;&#10;• 잘한 점을 먼저 칭찬해 주세요&#10;• 구체적인 개선 방향을 알려주세요"></textarea>
+      </div>
+      <div style="display:flex; gap:8px; margin-top:10px;">
+        <button class="btn-secondary" onclick="generateBasicAIComment()" style="flex:1;">🤖 AI 기본 피드백 생성</button>
+      </div>
+    </div>
+
+    <!-- 저장 버튼 -->
+    <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:20px; padding-top:16px; border-top:2px solid var(--border);">
+      <button class="btn-outline" onclick="closeModal('modal-ai-comment')">닫기</button>
+      <button class="btn-primary" onclick="saveComment()">💾 피드백 저장</button>
     </div>
   </div>
 </div>
@@ -1820,22 +2054,24 @@ function initData() {
       {
         id: 'a001',
         date: today(),
-        title: '북극의 빙하가 녹고 있어요 - 지구 온난화의 심각성',
-        category: '환경',
-        source: '어린이 과학동아',
-        url: 'https://www.dongascience.com',
-        summary: '기후 변화로 인한 북극 빙하 감소와 그 영향에 대한 기사',
+        title: '껌을 씹으면 독감에 걸렸는지 알 수 있다고요?',
+        category: '과학',
+        source: '생글생글 (한국경제신문)',
+        url: 'https://sgsg.hankyung.com/article/2025121933951',
+        summary: '독일 뷔르츠부르크 대학 연구팀이 껌을 씹어 독감을 진단하는 새로운 방법을 개발했습니다. 껌 속 분자 센서가 독감 바이러스와 반응해 특별한 맛을 내어 감염 여부를 알려줍니다.',
         knowledge: JSON.stringify([
-          {"icon":"🌡️","title":"지구 온난화란?","content":"지구의 평균 기온이 점점 올라가는 현상이에요. 자동차나 공장에서 나오는 온실가스가 주요 원인이랍니다."},
-          {"icon":"🧊","title":"북극 빙하의 역할","content":"북극의 빙하는 하얀 색으로 햇빛을 반사해서 지구를 시원하게 유지해줘요. 빙하가 녹으면 더 많은 열이 흡수된답니다."},
-          {"icon":"🐻","title":"북극곰의 위기","content":"빙하가 줄어들면 북극곰이 먹이를 구하기 어려워져요. 현재 북극곰은 멸종위기종으로 보호받고 있어요."}
+          {"icon":"🦠","title":"독감(인플루엔자)이란?","content":"독감은 인플루엔자 바이러스가 일으키는 호흡기 질환이에요. 감기와 달리 매우 빠르게 퍼지고 심하면 생명이 위험할 수도 있어요. 매년 전 세계에서 수십만 명이 독감으로 목숨을 잃는답니다."},
+          {"icon":"🔬","title":"PCR 검사와 신속항원 검사","content":"지금까지 독감 진단은 주로 두 가지 방법을 사용했어요. PCR 검사는 정확하지만 시간이 오래 걸리고, 신속항원 검사는 빠르지만 초기에는 정확도가 떨어지는 단점이 있어요."},
+          {"icon":"🧪","title":"분자 센서 기술이란?","content":"분자 센서는 아주 작은 분자 크기의 감지 장치예요. 특정 물질(여기서는 독감 바이러스 단백질)이 있을 때만 반응해서 신호를 보내주는 첨단 기술이랍니다."},
+          {"icon":"💡","title":"이 기술이 왜 중요할까요?","content":"독감은 증상이 나타나기 전에도 주변에 바이러스를 퍼뜨릴 수 있어요. 껌으로 빠르게 진단할 수 있다면 감염된 것을 조기에 알아채서 다른 사람에게 퍼지는 것을 막을 수 있어요!"}
         ]),
         vocab: JSON.stringify([
-          {"word":"빙하","def":"오랜 세월 동안 쌓인 눈이 굳어져 만들어진 거대한 얼음 덩어리"},
-          {"word":"온난화","def":"지구의 온도가 점점 높아지는 현상"},
-          {"word":"온실가스","def":"이산화탄소처럼 지구의 열이 우주로 나가지 못하게 막는 기체"},
-          {"word":"생태계","def":"어떤 지역에 살고 있는 생물들과 그 환경이 이루는 전체 시스템"},
-          {"word":"멸종","def":"어떤 종류의 생물이 지구상에서 완전히 사라지는 것"}
+          {"word":"독감","def":"인플루엔자 바이러스가 일으키는 전염성이 강한 호흡기 질환. 감기보다 훨씬 심한 증상이 나타남"},
+          {"word":"항원","def":"우리 몸의 면역 시스템이 반응하는 바이러스나 세균의 특정 단백질"},
+          {"word":"PCR검사","def":"유전자를 증폭시켜 바이러스를 정확하게 찾아내는 검사 방법"},
+          {"word":"분자센서","def":"특정 물질이 있을 때 화학 반응을 일으켜 신호를 보내는 아주 작은 감지 장치"},
+          {"word":"전염성","def":"병이 한 사람에서 다른 사람으로 옮겨가는 성질"},
+          {"word":"진단","def":"병의 원인이 무엇인지 알아내는 것"}
         ]),
         questions: JSON.stringify(getSampleQuestions())
       }
@@ -1854,76 +2090,77 @@ function initData() {
 
 function getSampleQuestions() {
   return {
+    // ── 3학년: 기본 이해 수준 ──
     grade3: {
       multiple: [
-        { q: "북극의 빙하가 녹는 주요 원인은 무엇인가요?", opts: ["화산 폭발","지구 온난화","강한 바람","비가 많이 와서"], ans: 1 },
-        { q: "지구 온난화를 일으키는 주요 기체는?", opts: ["산소","수소","온실가스","질소"], ans: 2 },
-        { q: "북극의 빙하 색깔은 어떤 역할을 하나요?", opts: ["열을 흡수한다","빛을 반사한다","눈을 만든다","비를 만든다"], ans: 1 },
-        { q: "빙하가 녹으면 어떤 동물이 위험해지나요?", opts: ["코끼리","기린","북극곰","사자"], ans: 2 },
-        { q: "지구를 위해 우리가 할 수 있는 일은?", opts: ["에너지 낭비하기","쓰레기 줄이기","물 많이 쓰기","자동차 많이 타기"], ans: 1 },
-        { q: "빙하가 녹으면 바닷물 높이는 어떻게 되나요?", opts: ["낮아진다","변함없다","높아진다","없어진다"], ans: 2 },
-        { q: "온실가스를 줄이는 방법으로 알맞은 것은?", opts: ["자동차 많이 타기","전기 많이 쓰기","나무 베기","대중교통 이용하기"], ans: 3 }
+        { q: "이 기사에서 새롭게 개발된 독감 진단 방법은 무엇인가요?", opts: ["주사를 맞는다","껌을 씹는다","코를 면봉으로 닦는다","피를 뽑는다"], ans: 1 },
+        { q: "독감과 감기의 차이로 맞는 것은?", opts: ["독감은 자연히 낫는다","독감은 전염되지 않는다","독감은 훨씬 더 위험하다","감기가 더 위험하다"], ans: 2 },
+        { q: "껌 진단법은 어느 나라 대학교에서 개발했나요?", opts: ["미국","일본","독일","한국"], ans: 2 },
+        { q: "독감 바이러스가 껌 속 무엇을 방출시켜서 맛이 나게 하나요?", opts: ["설탕","향료","소금","색소"], ans: 1 },
+        { q: "독감은 증상이 나타나기 전에 전염이 되나요?", opts: ["전혀 안 된다","조금 된다","많이 된다","알 수 없다"], ans: 2 },
+        { q: "PCR 검사의 장점은 무엇인가요?", opts: ["빠르다","정확도가 높다","아프지 않다","싸다"], ans: 1 },
+        { q: "신속항원 검사가 초기에 정확하지 않은 이유는?", opts: ["키트가 낡아서","바이러스 양이 적어서","검사자가 실수해서","날씨 때문에"], ans: 1 }
       ],
       short: [
-        { q: "북극곰이 멸종위기종이 된 이유를 쓰세요.", maxLen: 20 },
-        { q: "온실가스 중 가장 많이 알려진 기체 이름은?", maxLen: 10 },
-        { q: "빙하가 햇빛을 반사하는 것이 왜 중요한가요?", maxLen: 20 }
+        { q: "독감을 진단하는 기존 방법 두 가지를 쓰세요.", maxLen: 20 },
+        { q: "껌 진단법을 개발한 나라는 어디인가요?", maxLen: 10 },
+        { q: "독감이 감기보다 위험한 이유를 한 가지 쓰세요.", maxLen: 20 }
       ],
-      long: { q: "지구 온난화를 막기 위해 우리 가족이 실천할 수 있는 방법 3가지를 쓰고, 그 이유를 설명해 보세요.", minLen: 100, maxLen: 300 }
+      long: { q: "이 기사를 읽고 껌으로 독감을 진단하는 방법이 왜 좋은지, 그리고 독감을 예방하기 위해 내가 할 수 있는 일은 무엇이 있는지 자유롭게 써 보세요.", minLen: 100, maxLen: 300 }
     },
+    // ── 4학년: 내용 분석 수준 ──
     grade4: {
       multiple: [
-        { q: "북극 빙하 감소의 주요 원인은?", opts: ["자연적 기온 변화","인간 활동으로 인한 온난화","해류 변화","태양 활동 감소"], ans: 1 },
-        { q: "온실가스가 증가하면 지구 기온은?", opts: ["낮아진다","변함없다","높아진다","불규칙해진다"], ans: 2 },
-        { q: "이산화탄소를 흡수하는 자연적 방법은?", opts: ["공장 가동","나무 심기","자동차 운행","비행기 타기"], ans: 1 },
-        { q: "해수면 상승의 영향으로 가장 심각한 피해를 받는 곳은?", opts: ["높은 산지","사막 지역","해안 저지대","내륙 분지"], ans: 2 },
-        { q: "재생 에너지에 해당하는 것은?", opts: ["석탄","석유","천연가스","태양광"], ans: 3 },
-        { q: "기후 변화 협약에서 목표로 하는 기온 상승 제한은?", opts: ["0.5도 이하","1도 이하","1.5도 이하","2.5도 이하"], ans: 2 },
-        { q: "탄소 발자국이란 무엇을 나타내는 지표인가요?", opts: ["걸음 수","탄소 배출량","환경 점수","에너지 효율"], ans: 1 },
-        { q: "온난화로 인해 늘어나는 자연재해는?", opts: ["화산폭발","폭풍과 홍수","지진","쓰나미"], ans: 1 }
+        { q: "껌 진단법에서 독감 감염 여부를 알려주는 신호는 무엇인가요?", opts: ["껌 색깔 변화","향료 맛 감지","껌이 딱딱해짐","특별한 냄새"], ans: 1 },
+        { q: "기존 독감 진단법의 가장 큰 문제점은 무엇인가요?", opts: ["비용이 너무 많이 든다","진단 전에 이미 바이러스가 퍼질 수 있다","결과가 너무 느리게 나온다","검사가 너무 아프다"], ans: 1 },
+        { q: "이 연구 결과가 실린 학술지 이름은?", opts: ["네이처","사이언스","ACS 센트럴 사이언스","셀"], ans: 2 },
+        { q: "PCR 검사와 신속항원 검사의 공통점은?", opts: ["빠르다","콧속 검체를 사용한다","비용이 같다","정확도가 같다"], ans: 1 },
+        { q: "분자 센서가 반응하는 것은 무엇인가요?", opts: ["독감 환자의 체온","독감 바이러스 속 단백질","독감 환자의 침","독감 치료제"], ans: 1 },
+        { q: "껌 진단법이 기존 방법과 다른 가장 큰 특징은?", opts: ["병원에서만 가능","일상에서 쉽게 할 수 있다","의사만 사용 가능","매우 비싸다"], ans: 1 },
+        { q: "독감이 전 세계에 미치는 피해로 기사에서 언급된 내용은?", opts: ["경제 손실이 크다","매년 수십만 명의 목숨을 앗아간다","학교가 문을 닫는다","농작물에 피해를 준다"], ans: 1 }
       ],
       short: [
-        { q: "파리 기후 협약의 주요 목표를 쓰세요.", maxLen: 20 },
-        { q: "재생 가능 에너지의 종류 2가지를 쓰세요.", maxLen: 20 },
-        { q: "탄소 중립의 의미를 간략히 쓰세요.", maxLen: 20 }
+        { q: "PCR 검사의 단점을 한 가지 쓰세요.", maxLen: 20 },
+        { q: "신속항원 검사의 장점을 한 가지 쓰세요.", maxLen: 20 },
+        { q: "껌 진단법이 해결하려는 문제는 무엇인가요?", maxLen: 20 }
       ],
-      long: { q: "기후 변화가 우리나라에 미치는 영향을 구체적으로 2가지 이상 설명하고, 개인과 국가 차원에서 각각 할 수 있는 해결 방안을 제시하세요.", minLen: 100, maxLen: 300 }
+      long: { q: "기사에서 소개한 세 가지 독감 진단법(PCR 검사, 신속항원 검사, 껌 진단법)의 장점과 단점을 각각 비교하여 설명하고, 어떤 방법이 가장 유용하다고 생각하는지 이유와 함께 써 보세요.", minLen: 100, maxLen: 300 }
     },
+    // ── 5학년: 추론·적용 수준 ──
     grade5: {
       multiple: [
-        { q: "북극 빙하 감소가 해양 생태계에 미치는 영향으로 옳지 않은 것은?", opts: ["해수면 상승","해양 생물 서식지 파괴","바닷물 염도 변화","강수량 증가"], ans: 3 },
-        { q: "지구 온난화의 '피드백 효과'를 설명한 것으로 맞는 것은?", opts: ["온난화가 느려진다","온난화가 더 빨라진다","변화가 없다","예측 불가"], ans: 1 },
-        { q: "교토 의정서와 파리 협정의 공통 목적은?", opts: ["경제 성장 촉진","온실가스 감축","에너지 생산 증가","개발도상국 지원"], ans: 1 },
-        { q: "지구 평균 기온이 2도 오르면 예상되는 결과가 아닌 것은?", opts: ["빙하 대부분 소멸","생물 다양성 감소","사막화 진행","강우량 균등 분포"], ans: 3 },
-        { q: "탄소 포집 기술의 목적은?", opts: ["탄소 배출 증가","대기 중 탄소 제거","에너지 생산","물 정화"], ans: 1 },
-        { q: "해양 산성화가 산호초에 미치는 영향은?", opts: ["성장 촉진","백화 현상 발생","색깔 변화","크기 증가"], ans: 1 },
-        { q: "그린뉴딜 정책의 핵심은?", opts: ["화석연료 증산","재생에너지 전환과 일자리 창출","핵에너지 개발","농업 현대화"], ans: 1 },
-        { q: "영구동토층이 녹을 때 방출되는 온실가스는?", opts: ["이산화탄소만","메탄과 이산화탄소","산소","질소"], ans: 1 }
+        { q: "껌 진단법의 핵심 원리로 가장 적절한 설명은?", opts: ["바이러스를 직접 없애는 방법","바이러스 단백질이 껌 속 향료를 활성화","체온 변화로 감지","혈액 내 항체 측정"], ans: 1 },
+        { q: "이 기술이 감염병 예방에 효과적인 이유로 가장 적절한 것은?", opts: ["치료 효과가 뛰어남","증상 전 조기 발견 가능","백신보다 효과적","바이러스를 완전히 제거함"], ans: 1 },
+        { q: "신속항원 검사가 감염 초기에 부정확한 이유와 관련된 개념은?", opts: ["항원 농도 부족","체온 변화 부재","유전자 변이","면역 반응 과다"], ans: 0 },
+        { q: "껌 진단법이 실생활에서 도입될 경우 가장 유용한 장소는?", opts: ["심해 탐사대","학교·직장 같은 밀집 공간","사막 지역","고산 등반 팀"], ans: 1 },
+        { q: "이 연구가 '감염병 예방'에 기여할 수 있는 이유로 가장 적절한 것은?", opts: ["치료약 개발","전파 차단 시간 단축","바이러스 변이 방지","면역력 강화"], ans: 1 },
+        { q: "기사에서 분자 센서 기술의 응용 가능성과 관련해 유추할 수 있는 것은?", opts: ["독감에만 적용 가능","다른 감염병 진단에도 활용 가능","가정에서는 사용 불가","5년 후 상용화 가능"], ans: 1 },
+        { q: "다음 중 이 기사의 핵심 주제와 가장 가까운 것은?", opts: ["독감 치료제 개발","과학 기술을 활용한 조기 진단 혁신","감기와 독감의 차이","PCR 검사의 역사"], ans: 1 }
       ],
       short: [
-        { q: "알베도 효과가 기후에 미치는 영향을 설명하세요.", maxLen: 20 },
-        { q: "탄소 중립을 달성하기 위한 주요 전략 2가지는?", maxLen: 20 },
-        { q: "기후 정의(Climate Justice)의 의미를 쓰세요.", maxLen: 20 }
+        { q: "껌 진단법이 기존 방법보다 나은 점을 두 가지 쓰세요.", maxLen: 20 },
+        { q: "분자 센서가 독감 바이러스에만 반응하는 이유는?", maxLen: 20 },
+        { q: "이 기술이 학교에서 활용된다면 어떤 점이 좋을까요?", maxLen: 20 }
       ],
-      long: { q: "선진국과 개발도상국 간의 기후 변화 대응에 있어 나타나는 형평성 문제를 설명하고, 국제 사회가 이 문제를 해결하기 위해 어떤 방식으로 협력해야 하는지 본인의 의견을 서술하세요.", minLen: 100, maxLen: 300 }
+      long: { q: "과학 기술의 발전이 우리의 건강을 지키는 데 어떤 역할을 하는지 이 기사의 내용을 근거로 설명하고, 앞으로 개발되었으면 하는 의료 기술에 대해 본인의 생각을 구체적으로 서술하세요.", minLen: 100, maxLen: 300 }
     },
+    // ── 6학년: 비판적 사고·종합 수준 ──
     grade6: {
       multiple: [
-        { q: "IPCC(기후변화에 관한 정부간 협의체)의 역할로 가장 적절한 것은?", opts: ["온실가스 직접 감축","기후 변화 과학적 평가 제공","에너지 기업 규제","탄소세 부과"], ans: 1 },
-        { q: "지구 에너지 수지에서 온실가스 증가가 미치는 직접적 영향은?", opts: ["태양 복사 증가","지구 복사 차단","반사율 증가","구름 감소"], ans: 1 },
-        { q: "Net-Zero(탄소 순배출 제로)에 대한 설명으로 옳은 것은?", opts: ["탄소 배출 전면 금지","배출량과 흡수량 균형","탄소세 완전 폐지","화석연료 100% 유지"], ans: 1 },
-        { q: "해양의 열팽창이 해수면 상승에 기여하는 원인은?", opts: ["물이 열을 받으면 부피 감소","물이 열을 받으면 부피 증가","염도 증가","해류 변화"], ans: 1 },
-        { q: "제27차 COP에서 주요 합의 사항이 아닌 것은?", opts: ["손실과 피해 기금 설립","재생에너지 투자","화석연료 생산 중단 협약","개발도상국 지원"], ans: 2 },
-        { q: "지구 시스템에서 탄소 순환의 인위적 교란이 가져오는 결과는?", opts: ["대기 중 CO2 감소","생태계 안정화","기후 시스템 불균형","해양 생산성 증가"], ans: 2 },
-        { q: "기후 변화 적응 정책의 예로 적절하지 않은 것은?", opts: ["해안 방벽 건설","가뭄 내성 작물 개발","화석연료 보조금 지급","조기 경보 시스템 구축"], ans: 2 },
-        { q: "탄소 가격제(Carbon Pricing)의 경제적 원리는?", opts: ["탄소 배출 외부 비용 내부화","탄소 배출 기업 보조금","탄소 거래 금지","에너지 세금 폐지"], ans: 0 }
+        { q: "껌 진단법이 '공중 보건'에 기여할 수 있는 가장 핵심적인 이유는?", opts: ["저렴한 생산 비용","무증상 감염자의 조기 발견으로 집단 전파 차단","맛이 좋아 거부감이 없음","병원 방문 횟수 감소"], ans: 1 },
+        { q: "신속항원 검사의 한계를 보완하기 위한 접근법으로 이 연구와 가장 유사한 방향은?", opts: ["검체 채취 부위 변경","분자 수준의 감지 민감도 향상","검사 횟수 증가","전문 의료진 교육 강화"], ans: 1 },
+        { q: "다음 중 이 연구의 의의를 가장 정확하게 설명한 것은?", opts: ["독감 바이러스를 완전히 없애는 방법 개발","일상에서 접근 가능한 비침습적 조기 진단 기술 제시","PCR 검사보다 정확한 방법 개발","신약 개발에 기여하는 분자 연구"], ans: 1 },
+        { q: "이 기술이 상용화되기 위해 추가로 검증이 필요한 사항은?", opts: ["껌의 맛 개선","다양한 바이러스 변이에 대한 반응 정확도","포장 디자인","유통기한 연장"], ans: 1 },
+        { q: "감염병 예방에서 '조기 진단'의 중요성을 설명하는 개념으로 적절한 것은?", opts: ["집단 면역","골든 타임 확보","자연 치유력","항생제 내성"], ans: 1 },
+        { q: "이 연구가 발표된 국제학술지 'ACS 센트럴 사이언스'의 'ACS'는 무엇의 약자일 가능성이 높은가?", opts: ["아시아 화학회","미국 화학회","호주 과학위원회","첨단 컴퓨터 시스템"], ans: 1 },
+        { q: "다음 중 이 기사의 NIE(신문 활용 교육) 학습 포인트로 가장 적절한 것은?", opts: ["독감 예방접종의 원리","과학 기술 혁신이 사회 문제 해결에 기여하는 과정","분자 생물학의 역사","의료 기기 제조 과정"], ans: 1 }
       ],
       short: [
-        { q: "티핑 포인트(Tipping Point)가 기후에 미치는 의미는?", maxLen: 20 },
-        { q: "블루카본과 그린카본의 차이점을 쓰세요.", maxLen: 20 },
-        { q: "공정한 에너지 전환(Just Transition)이 필요한 이유는?", maxLen: 20 }
+        { q: "이 기술의 한계점이나 보완이 필요한 점을 쓰세요.", maxLen: 20 },
+        { q: "'비침습적 진단'의 의미를 이 기사와 연결해 설명하세요.", maxLen: 20 },
+        { q: "감염병 예방에서 조기 진단이 중요한 이유를 쓰세요.", maxLen: 20 }
       ],
-      long: { q: "기후 변화는 단순한 환경 문제를 넘어 사회·경제·안보 문제와도 연결됩니다. 기후 변화가 식량 안보, 국제 분쟁, 경제적 불평등에 미치는 영향을 분석하고, 지속 가능한 미래를 위해 개인·기업·정부가 각각 어떤 역할을 해야 하는지 종합적으로 논하세요.", minLen: 100, maxLen: 300 }
+      long: { q: "이 기사에서 소개한 껌 진단 기술처럼, 과학 기술이 사회 문제(감염병 확산)를 해결하는 방식에 대해 비판적으로 분석하세요. 이 기술의 장점과 한계를 모두 제시하고, 실제로 도입되기 위해 해결해야 할 사회적·윤리적 과제는 무엇인지 종합적으로 논하세요.", minLen: 100, maxLen: 300 }
     }
   };
 }
@@ -2292,6 +2529,7 @@ function selectMC(qIdx, optIdx, correctIdx) {
   const answers = getSavedAnswers();
   const qa = answers.questions || {};
   qa[`mc_${qIdx}`] = optIdx;
+  qa[`mc_${qIdx}_correct`] = (optIdx === correctIdx);
   saveAnswers({ questions: qa });
   renderQuestions(currentGrade);
   if (optIdx === correctIdx) showToast('정답입니다! 🎉', 'success');
@@ -2533,14 +2771,16 @@ function renderCalendar() {
   }
 
   // Teacher comments
-  const myComments = mySubmissions.filter(s => s.teacherComment || s.aiComment);
+  const myComments = mySubmissions.filter(s => s.teacherComment || s.aiComment || s.aiAnalysis || s.aiRewrite);
   const commentEl = document.getElementById('teacher-comments-list');
   if (myComments.length) {
     commentEl.innerHTML = myComments.slice(-3).reverse().map(s => `
       <div style="border:2px solid var(--border); border-radius:var(--radius-sm); padding:16px; margin-bottom:12px;">
         <div style="font-size:12px; color:var(--text-light); margin-bottom:8px;">📅 ${formatDate(s.date)} · ${s.articleTitle || '기사 없음'}</div>
         ${s.teacherComment ? `<div class="ai-comment"><div class="ai-comment-header">✏️ 선생님 피드백</div>${s.teacherComment}</div>` : ''}
-        ${s.aiComment ? `<div class="ai-comment" style="margin-top:8px;"><div class="ai-comment-header">🤖 AI 피드백</div>${s.aiComment}</div>` : ''}
+        ${s.aiComment ? `<div class="ai-comment" style="margin-top:8px;"><div class="ai-comment-header">🤖 AI 기본 피드백</div>${s.aiComment}</div>` : ''}
+        ${s.aiAnalysis ? `<div class="ai-comment" style="margin-top:8px; background:rgba(168,230,207,.12); border-left-color:var(--accent2);"><div class="ai-comment-header" style="color:#276749;">🔍 AI 글 분석</div><pre style="white-space:pre-wrap;font-family:inherit;font-size:13px;line-height:1.8;">${s.aiAnalysis}</pre></div>` : ''}
+        ${s.aiRewrite ? `<div class="ai-comment" style="margin-top:8px; background:rgba(255,107,53,.06); border-left-color:var(--primary);"><div class="ai-comment-header" style="color:var(--primary);">✨ AI 논술 재구성 예시</div><pre style="white-space:pre-wrap;font-family:inherit;font-size:13px;line-height:1.8;">${s.aiRewrite}</pre></div>` : ''}
       </div>`).join('');
   }
 }
@@ -2788,47 +3028,273 @@ function deleteArticle(id) {
 }
 
 // SUBMISSIONS ADMIN
+// ========================
+// SUBMISSIONS — STUDENT LIST VIEW
+// ========================
+let currentDetailUserId = null;
+
 function loadSubmissions() {
-  filterSubmissions();
+  renderStudentSubmissionList();
 }
 
-function filterSubmissions() {
+function renderStudentSubmissionList() {
+  const users = DB.get('users') || [];
   const submissions = DB.get('submissions') || [];
-  const filterUser = document.getElementById('filter-student')?.value || '';
-  const filterDate = document.getElementById('filter-date')?.value || '';
+  const q = (document.getElementById('sub-search-input')?.value || '').toLowerCase();
 
-  // Populate date filter
-  const dateFilter = document.getElementById('filter-date');
-  if (dateFilter) {
-    const dates = [...new Set(submissions.map(s => s.date))].sort().reverse();
-    dateFilter.innerHTML = '<option value="">전체 날짜</option>' +
-      dates.map(d => `<option value="${d}" ${d===filterDate?'selected':''}>${formatDate(d)}</option>`).join('');
-  }
+  const filtered = users.filter(u => !q || u.name.toLowerCase().includes(q));
 
-  let filtered = submissions.filter(s => s.completed);
-  if (filterUser) filtered = filtered.filter(s => s.userId === filterUser);
-  if (filterDate) filtered = filtered.filter(s => s.date === filterDate);
-  filtered.sort((a,b) => b.date.localeCompare(a.date));
+  const html = filtered.map(u => {
+    const mySubs = submissions.filter(s => s.userId === u.id && s.completed);
+    const thisMonth = mySubs.filter(s => s.date?.startsWith(today().slice(0,7))).length;
+    const total = mySubs.length;
+    const pendingFb = mySubs.filter(s => !s.teacherComment && !s.aiComment).length;
 
-  document.getElementById('submissions-list').innerHTML = filtered.map(s => `
-    <div class="submission-card">
-      <div class="s-header">
-        <div>
-          <div class="s-name">${s.userName} (${s.grade}학년)</div>
-          <div class="s-date">📅 ${formatDate(s.date)} · 📰 ${s.articleTitle || '-'} · ⏱️ ${s.readTime}</div>
-        </div>
-        <div style="display:flex; gap:6px; flex-wrap:wrap;">
-          <button class="action-btn view" onclick="printSubmission('${s.id}')">🖨️ 출력</button>
-          <button class="action-btn view" onclick="downloadSubmissionPDF('${s.id}')">📥 PDF</button>
-          <button class="action-btn edit" onclick="openAIComment('${s.id}')">💬 피드백</button>
+    // MC 정답률
+    let mcRight = 0, mcTotal = 0;
+    mySubs.forEach(s => {
+      const qa = s.questions || {};
+      Object.keys(qa).filter(k => k.startsWith('mc_')).forEach(k => {
+        mcTotal++;
+        // correct if stored as correct (we mark correctness at answer time)
+        if (qa[k + '_correct']) mcRight++;
+      });
+    });
+
+    const mcRate = mcTotal > 0 ? Math.round(mcRight / mcTotal * 100) : null;
+
+    return `<div class="stu-sub-card" onclick="openStudentDetail('${u.id}')">
+      <div class="ss-avatar">${u.name[0]}</div>
+      <div class="ss-info">
+        <div class="ss-name">${u.name} <span style="font-size:12px; color:var(--text-light); font-weight:400;">(${u.grade}학년 · ${u.school || ''})</span></div>
+        <div class="ss-meta">총 ${total}회 완료 · 이번달 ${thisMonth}일
+          ${pendingFb > 0 ? `<span style="color:var(--primary); font-weight:700; margin-left:6px;">· 피드백 대기 ${pendingFb}건</span>` : ''}
+          <span class="status-badge ${u.status==='active'?'status-active':u.status==='suspended'?'status-inactive':'status-suspended'}" style="margin-left:8px;">${u.status==='active'?'활성':u.status==='suspended'?'정지':'비활성'}</span>
         </div>
       </div>
-      ${s.daily ? `<div><strong style="font-size:13px;">✏️ 오늘의 질문 답변</strong><div class="s-content">${s.daily}</div></div>` : ''}
-      ${s.summary ? `<div><strong style="font-size:13px;">📝 기사 요약</strong><div class="s-content">${s.summary}</div></div>` : ''}
-      ${s.questions?.long ? `<div><strong style="font-size:13px;">📖 서술형 답변</strong><div class="s-content">${s.questions.long}</div></div>` : ''}
-      ${s.teacherComment ? `<div class="ai-comment"><div class="ai-comment-header">✏️ 선생님 피드백</div>${s.teacherComment}</div>` : ''}
-      ${s.aiComment ? `<div class="ai-comment" style="margin-top:8px;"><div class="ai-comment-header">🤖 AI 피드백</div>${s.aiComment}</div>` : ''}
-    </div>`).join('') || '<p style="color:var(--text-light);text-align:center;padding:40px;">제출물이 없습니다</p>';
+      <div class="ss-stats">
+        <div class="ss-stat"><div class="ss-stat-val">${total}</div><div class="ss-stat-label">총완료</div></div>
+        <div class="ss-stat"><div class="ss-stat-val">${thisMonth}</div><div class="ss-stat-label">이번달</div></div>
+        ${mcRate !== null ? `<div class="ss-stat"><div class="ss-stat-val" style="color:${mcRate>=70?'var(--success)':mcRate>=50?'var(--warning)':'var(--danger)'}">${mcRate}%</div><div class="ss-stat-label">정답률</div></div>` : ''}
+        <div style="font-size:20px;">›</div>
+      </div>
+    </div>`;
+  }).join('') || '<p style="color:var(--text-light);text-align:center;padding:40px;">학생이 없습니다</p>';
+
+  document.getElementById('student-submission-cards').innerHTML = html;
+}
+
+function openStudentDetail(userId) {
+  currentDetailUserId = userId;
+  const users = DB.get('users') || [];
+  const u = users.find(x => x.id === userId);
+  if (!u) return;
+
+  document.getElementById('sub-student-list-view').classList.add('hidden');
+  document.getElementById('sub-detail-view').classList.remove('hidden');
+  document.getElementById('detail-student-name').textContent = `${u.name} 학생의 학습 기록`;
+  document.getElementById('detail-student-info').textContent = `${u.grade}학년 · ${u.school || ''} · ${u.parent || ''}`;
+
+  // Populate date filter
+  const submissions = DB.get('submissions') || [];
+  const mySubs = submissions.filter(s => s.userId === userId && s.completed).sort((a,b) => b.date.localeCompare(a.date));
+  const dates = [...new Set(mySubs.map(s => s.date))];
+  const sel = document.getElementById('detail-filter-date');
+  sel.innerHTML = '<option value="">전체 날짜</option>' + dates.map(d => `<option value="${d}">${formatDate(d)}</option>`).join('');
+
+  // Set rewrite grade to student grade
+  const rg = document.getElementById('rewrite-grade');
+  if (rg) rg.value = String(u.grade);
+
+  renderDetailStats(userId, mySubs);
+  renderDetailMCChart(userId, mySubs);
+  renderDetailSubmissions();
+}
+
+function backToStudentList() {
+  document.getElementById('sub-detail-view').classList.add('hidden');
+  document.getElementById('sub-student-list-view').classList.remove('hidden');
+  currentDetailUserId = null;
+}
+
+function renderDetailStats(userId, mySubs) {
+  const total = mySubs.length;
+  let streak = 0;
+  for (let i = 0; ; i++) {
+    const d = getDateOffset(-i);
+    if (!mySubs.find(s => s.date === d)) break;
+    streak++;
+  }
+  const thisMonth = mySubs.filter(s => s.date?.startsWith(today().slice(0,7))).length;
+  const withFb = mySubs.filter(s => s.teacherComment || s.aiComment || s.aiAnalysis || s.aiRewrite).length;
+
+  const cards = [
+    { val: total, label: '총 완료', color: 'var(--primary)' },
+    { val: streak, label: '연속 학습일', color: 'var(--secondary)' },
+    { val: thisMonth, label: '이번달', color: 'var(--success)' },
+    { val: withFb, label: '피드백 완료', color: 'var(--warning)' }
+  ];
+  document.getElementById('detail-stats').innerHTML = cards.map(c => `
+    <div class="stat-card">
+      <div class="stat-value" style="color:${c.color};">${c.val}</div>
+      <div class="stat-label">${c.label}</div>
+    </div>`).join('');
+}
+
+function renderDetailMCChart(userId, mySubs) {
+  // per-day correct/total
+  if (!mySubs.length) { document.getElementById('detail-mc-section').style.display = 'none'; return; }
+  document.getElementById('detail-mc-section').style.display = 'block';
+
+  const rows = mySubs.slice(0,10).map(s => {
+    const qa = s.questions || {};
+    const mcKeys = Object.keys(qa).filter(k => k.startsWith('mc_') && !k.endsWith('_correct'));
+    const total = mcKeys.length;
+    const correct = mcKeys.filter(k => qa[k + '_correct']).length;
+    const rate = total > 0 ? Math.round(correct/total*100) : 0;
+    return { date: s.date, correct, total, rate };
+  });
+
+  document.getElementById('detail-mc-chart').innerHTML = rows.map(r => `
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+      <div style="font-size:12px; color:var(--text-light); width:90px; flex-shrink:0;">${r.date.slice(5).replace('-','/')}</div>
+      <div class="mc-bar-wrap"><div class="mc-bar-fill" style="width:${r.rate}%;"></div></div>
+      <div style="font-size:12px; font-weight:700; width:60px; text-align:right; color:${r.rate>=70?'var(--success)':r.rate>=50?'var(--warning)':'var(--danger)'};">${r.correct}/${r.total} (${r.rate}%)</div>
+    </div>`).join('') || '<p style="color:var(--text-light); font-size:13px;">객관식 데이터가 없습니다</p>';
+}
+
+function renderDetailSubmissions() {
+  if (!currentDetailUserId) return;
+  const filterDate = document.getElementById('detail-filter-date')?.value || '';
+  const submissions = DB.get('submissions') || [];
+  let mySubs = submissions.filter(s => s.userId === currentDetailUserId && s.completed);
+  if (filterDate) mySubs = mySubs.filter(s => s.date === filterDate);
+  mySubs.sort((a,b) => b.date.localeCompare(a.date));
+
+  document.getElementById('detail-submissions-list').innerHTML = mySubs.map(s => {
+    const qa = s.questions || {};
+    const mcKeys = Object.keys(qa).filter(k => k.startsWith('mc_') && !k.endsWith('_correct'));
+    const mcTotal = mcKeys.length;
+    const mcCorrect = mcKeys.filter(k => qa[k+'_correct']).length;
+
+    // MC dot indicators
+    const mcDots = mcKeys.map((k,i) => {
+      const answered = qa[k] !== undefined && qa[k] !== null;
+      const correct = qa[k+'_correct'];
+      let cls = answered ? (correct ? 'correct' : 'wrong') : 'unanswered';
+      return `<div class="mc-dot ${cls}" title="${i+1}번">${i+1}</div>`;
+    }).join('');
+
+    const hasFb = s.teacherComment || s.aiComment || s.aiAnalysis || s.aiRewrite;
+
+    return `
+    <div class="detail-sub-card">
+      <div class="detail-sub-header" onclick="toggleDetailBody('body_${s.id}')">
+        <div>
+          <span style="font-weight:800; font-size:15px;">📅 ${formatDate(s.date)}</span>
+          <span style="font-size:12px; color:var(--text-light); margin-left:8px;">· ${s.articleTitle||'기사'} · ⏱️${s.readTime||'-'}</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          ${mcTotal > 0 ? `<span style="font-size:12px; font-weight:700; color:${mcCorrect/mcTotal>=.7?'var(--success)':'var(--warning)'};">객관식 ${mcCorrect}/${mcTotal}</span>` : ''}
+          ${hasFb ? '<span class="badge" style="background:rgba(78,205,196,.15);color:var(--secondary);">피드백완료</span>' : '<span class="badge" style="background:rgba(246,173,85,.15);color:#975A16;">피드백대기</span>'}
+          <button class="action-btn edit" onclick="event.stopPropagation(); openAIComment('${s.id}')">💬 피드백</button>
+          <button class="action-btn view" onclick="event.stopPropagation(); printSubmission('${s.id}')">🖨️ 출력</button>
+          <button class="action-btn view" onclick="event.stopPropagation(); downloadSubmissionPDF('${s.id}')">📥 PDF</button>
+        </div>
+      </div>
+      <div id="body_${s.id}" style="display:none;">
+        <div class="detail-sub-body">
+
+          ${s.daily ? `<div class="writing-section">
+            <div class="writing-label">✏️ 오늘의 질문 답변</div>
+            <div class="writing-text">${s.daily}</div>
+          </div>` : ''}
+
+          ${s.summary ? `<div class="writing-section">
+            <div class="writing-label">📝 기사 요약</div>
+            <div class="writing-text">${s.summary}</div>
+          </div>` : ''}
+
+          ${mcTotal > 0 ? `<div class="writing-section">
+            <div class="writing-label">📊 객관식 답안 (${mcCorrect}/${mcTotal} 정답)</div>
+            <div class="mc-result-grid">${mcDots || '<span style="font-size:13px;color:var(--text-light);">답안 없음</span>'}</div>
+          </div>` : ''}
+
+          ${(qa.sa_0||qa.sa_1||qa.sa_2) ? `<div class="writing-section">
+            <div class="writing-label">📌 주관식 답안</div>
+            ${[0,1,2].filter(i=>qa['sa_'+i]).map(i=>`
+              <div style="font-size:13px; margin-bottom:6px;"><strong>${i+1}번:</strong> <span style="color:var(--text);">${qa['sa_'+i]}</span></div>`).join('')}
+          </div>` : ''}
+
+          ${s.questions?.long ? `<div class="writing-section">
+            <div class="writing-label">📖 서술형 답변</div>
+            <div class="writing-text">${s.questions.long}</div>
+          </div>` : ''}
+
+          ${s.teacherComment ? `<div class="fb-bubble fb-teacher"><div class="fb-label" style="color:#975A16;">✏️ 선생님 피드백</div>${s.teacherComment}</div>` : ''}
+          ${s.aiComment ? `<div class="fb-bubble fb-ai"><div class="fb-label" style="color:var(--secondary);">🤖 AI 기본 피드백</div>${s.aiComment}</div>` : ''}
+          ${s.aiAnalysis ? `<div class="fb-bubble fb-analysis"><div class="fb-label" style="color:#276749;">🔍 AI 글 분석</div><pre style="white-space:pre-wrap;font-family:inherit;font-size:13px;line-height:1.8;">${s.aiAnalysis}</pre></div>` : ''}
+          ${s.aiRewrite ? `<div class="fb-bubble fb-rewrite"><div class="fb-label" style="color:var(--primary);">✨ AI 논술 재구성</div><pre style="white-space:pre-wrap;font-family:inherit;font-size:13px;line-height:1.8;">${s.aiRewrite}</pre></div>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }).join('') || '<p style="color:var(--text-light);text-align:center;padding:40px;">제출물이 없습니다</p>';
+}
+
+function toggleDetailBody(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+// ── 학생 전체 PDF ──
+function downloadStudentPDFAll() {
+  if (!currentDetailUserId) return;
+  const users = DB.get('users') || [];
+  const u = users.find(x => x.id === currentDetailUserId);
+  const submissions = DB.get('submissions') || [];
+  const mySubs = submissions.filter(s => s.userId === currentDetailUserId && s.completed).sort((a,b) => b.date.localeCompare(a.date));
+  if (!mySubs.length) { showToast('다운로드할 제출물이 없습니다', 'error'); return; }
+
+  const content = `<html><head><meta charset="UTF-8"><style>
+    body{font-family:'Noto Sans KR',sans-serif;padding:32px;max-width:800px;margin:0 auto}
+    h1{color:#FF6B35;font-size:22px} h2{color:#333;border-bottom:2px solid #FF6B35;padding-bottom:6px;margin:18px 0 10px;font-size:16px}
+    .box{background:#f9f9f9;padding:14px;border-radius:8px;font-size:13px;line-height:1.8;margin:6px 0}
+    .fb{padding:12px 16px;border-radius:0 8px 8px 0;font-size:13px;line-height:1.8;margin:6px 0}
+    .fb-t{background:#fffbea;border-left:4px solid #FFE66D} .fb-a{background:#e6f7f7;border-left:4px solid #4ECDC4}
+    .fb-an{background:#f0fff4;border-left:4px solid #A8E6CF} .fb-r{background:#fff5f2;border-left:4px solid #FF6B35}
+    .page-break{page-break-after:always;margin-bottom:32px} .label{font-size:11px;font-weight:700;color:#999;text-transform:uppercase;margin-bottom:4px}
+    </style></head><body>
+    <h1>📰 NIE 학습 결과물 — ${u?.name || ''} (${u?.grade||''}학년)</h1>
+    ${mySubs.map(s => `
+      <div class="page-break">
+        <p style="color:#999;font-size:12px;margin-bottom:16px;">${s.date} · ${s.articleTitle||''}</p>
+        ${s.daily?`<h2>오늘의 질문</h2><div class="box">${s.daily}</div>`:''}
+        ${s.summary?`<h2>기사 요약</h2><div class="box">${s.summary}</div>`:''}
+        ${s.questions?.long?`<h2>서술형 답변</h2><div class="box">${s.questions.long}</div>`:''}
+        ${s.teacherComment?`<h2>선생님 피드백</h2><div class="fb fb-t">${s.teacherComment}</div>`:''}
+        ${s.aiComment?`<h2>AI 피드백</h2><div class="fb fb-a">${s.aiComment}</div>`:''}
+        ${s.aiAnalysis?`<h2>AI 글 분석</h2><div class="fb fb-an"><pre style="white-space:pre-wrap;font-family:inherit;">${s.aiAnalysis}</pre></div>`:''}
+        ${s.aiRewrite?`<h2>AI 논술 재구성</h2><div class="fb fb-r"><pre style="white-space:pre-wrap;font-family:inherit;">${s.aiRewrite}</pre></div>`:''}
+      </div>`).join('')}
+    </body></html>`;
+
+  const blob = new Blob([content], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `NIE_${u?.name||'학생'}_전체_${today()}.html`;
+  a.click(); URL.revokeObjectURL(url);
+  showToast('PDF 다운로드 완료!', 'success');
+}
+
+// ========================
+// AI COMMENT MODAL
+// ========================
+function switchAITab(tab) {
+  ['analysis','rewrite','manual'].forEach(t => {
+    document.getElementById('ai-tab-'+t).classList.toggle('active', t===tab);
+    document.getElementById('ai-panel-'+t).classList.toggle('hidden', t!==tab);
+  });
 }
 
 function openAIComment(subId) {
@@ -2836,22 +3302,200 @@ function openAIComment(subId) {
   const sub = submissions.find(s => s.id === subId);
   if (!sub) return;
   currentCommentTarget = subId;
-  const content = [sub.daily, sub.summary, sub.questions?.long].filter(Boolean).join('\n\n');
-  document.getElementById('ai-target-content').textContent = content || '내용 없음';
+
+  document.getElementById('modal-student-label').textContent = `${sub.userName} · ${sub.grade}학년 · ${formatDate(sub.date)}`;
+
+  const content = [
+    sub.daily ? `[오늘의 질문 답변]\n${sub.daily}` : '',
+    sub.summary ? `[기사 요약]\n${sub.summary}` : '',
+    sub.questions?.long ? `[서술형 답변]\n${sub.questions.long}` : ''
+  ].filter(Boolean).join('\n\n');
+
+  document.getElementById('ai-target-content').textContent = content || '작성된 글이 없습니다';
   document.getElementById('manual-comment').value = sub.teacherComment || '';
-  const resultEl = document.getElementById('ai-comment-result');
-  if (sub.aiComment) {
-    document.getElementById('ai-comment-text').textContent = sub.aiComment;
-    resultEl.style.display = 'block';
-  } else {
-    resultEl.style.display = 'none';
+  document.getElementById('ai-saved-feedback').textContent = sub.aiComment || '(아직 생성된 AI 피드백이 없습니다)';
+
+  // reset results
+  document.getElementById('analysis-result').style.display = 'none';
+  document.getElementById('btn-apply-analysis').style.display = 'none';
+  document.getElementById('rewrite-result').style.display = 'none';
+
+  // Restore saved analysis/rewrite
+  if (sub.aiAnalysis) {
+    document.getElementById('analysis-detail').textContent = sub.aiAnalysis;
+    document.getElementById('analysis-result').style.display = 'block';
+    document.getElementById('btn-apply-analysis').style.display = '';
+    document.getElementById('score-cards').innerHTML = '';
   }
+  if (sub.aiRewrite) {
+    document.getElementById('rewrite-text').textContent = sub.aiRewrite;
+    document.getElementById('rewrite-result').style.display = 'block';
+  }
+
+  // Set rewrite grade
+  const users = DB.get('users') || [];
+  const u = users.find(x => x.id === sub.userId);
+  if (u) document.getElementById('rewrite-grade').value = String(u.grade);
+
+  switchAITab('analysis');
   openModal('modal-ai-comment');
 }
 
-async function generateAIComment() {
+// ── 글 분석 ──
+async function runAnalysis() {
   const apiKey = getAPIKey();
-  if (!apiKey) { showToast('API 키를 설정 페이지에서 먼저 입력해주세요', 'error'); return; }
+  if (!apiKey) { showToast('API 키를 설정에서 먼저 입력해주세요', 'error'); return; }
+  const submissions = DB.get('submissions') || [];
+  const sub = submissions.find(s => s.id === currentCommentTarget);
+  if (!sub) return;
+
+  const content = [sub.daily, sub.summary, sub.questions?.long].filter(Boolean).join('\n\n');
+  if (!content.trim()) { showToast('분석할 글이 없습니다', 'error'); return; }
+
+  showLoading(true);
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1200,
+        system: `당신은 초등학교 ${sub.grade}학년 학생의 글쓰기를 분석하는 국어 교육 전문가입니다.
+학생의 글을 아래 5가지 항목으로 분석해 주세요. 각 항목은 10점 만점으로 점수를 매기고, 구체적인 이유와 개선 방법을 알려주세요. 초등학생 수준에 맞는 쉬운 말로 써주세요.
+
+반드시 다음 JSON 형식으로만 응답하세요 (다른 말 없이 JSON만):
+{
+  "scores": {
+    "내용충실도": 점수,
+    "논리구조": 점수,
+    "어휘표현": 점수,
+    "문장완성도": 점수,
+    "창의성": 점수
+  },
+  "잘한점": "구체적으로 잘한 점 2~3가지",
+  "부족한점": "구체적으로 부족한 점 2~3가지",
+  "개선방법": "단계별 개선 방법 2~3가지",
+  "총평": "전체적인 총평 (2~3문장, 초등학생에게 격려가 되도록)"
+}`,
+        messages: [{ role: 'user', content: `학생: ${sub.userName} (${sub.grade}학년)\n\n글 내용:\n${content}` }]
+      })
+    });
+    const data = await resp.json();
+    const raw = data.content?.[0]?.text || '{}';
+    let result;
+    try {
+      result = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    } catch(e) {
+      document.getElementById('analysis-detail').textContent = raw;
+      document.getElementById('analysis-result').style.display = 'block';
+      document.getElementById('btn-apply-analysis').style.display = '';
+      showLoading(false); return;
+    }
+
+    // Score cards
+    const scoreColors = { 내용충실도:'var(--primary)', 논리구조:'var(--secondary)', 어휘표현:'var(--success)', 문장완성도:'var(--warning)', 창의성:'#9F7AEA' };
+    const sc = result.scores || {};
+    document.getElementById('score-cards').innerHTML = Object.entries(sc).map(([k,v]) =>
+      `<div class="score-card"><div class="sc-val" style="color:${scoreColors[k]||'var(--primary)'};">${v}<span style="font-size:14px;">/10</span></div><div class="sc-label">${k}</div></div>`
+    ).join('');
+
+    const detailText = [
+      result.잘한점 ? `✅ 잘한 점\n${result.잘한점}` : '',
+      result.부족한점 ? `\n⚠️ 부족한 점\n${result.부족한점}` : '',
+      result.개선방법 ? `\n💡 개선 방법\n${result.개선방법}` : '',
+      result.총평 ? `\n🌟 총평\n${result.총평}` : ''
+    ].filter(Boolean).join('\n');
+
+    document.getElementById('analysis-detail').textContent = detailText;
+    document.getElementById('analysis-result').style.display = 'block';
+    document.getElementById('btn-apply-analysis').style.display = '';
+
+    // Auto-save analysis
+    const idx = submissions.findIndex(s => s.id === currentCommentTarget);
+    if (idx >= 0) { submissions[idx].aiAnalysis = detailText; DB.set('submissions', submissions); }
+
+    showToast('글 분석이 완료되었습니다!', 'success');
+  } catch(e) {
+    showToast('분석 중 오류가 발생했습니다', 'error');
+  }
+  showLoading(false);
+}
+
+function saveAnalysisToFeedback() {
+  const analysisText = document.getElementById('analysis-detail').textContent;
+  const current = document.getElementById('manual-comment').value;
+  document.getElementById('manual-comment').value = (current ? current + '\n\n' : '') + '[AI 글 분석 결과]\n' + analysisText;
+  switchAITab('manual');
+  showToast('분석 결과가 피드백에 추가되었습니다', 'success');
+}
+
+// ── 논술 재구성 ──
+async function runRewrite() {
+  const apiKey = getAPIKey();
+  if (!apiKey) { showToast('API 키를 설정에서 먼저 입력해주세요', 'error'); return; }
+  const submissions = DB.get('submissions') || [];
+  const sub = submissions.find(s => s.id === currentCommentTarget);
+  if (!sub) return;
+
+  const targetGrade = document.getElementById('rewrite-grade').value;
+  const style = document.getElementById('rewrite-style').value;
+  const content = [sub.daily, sub.summary, sub.questions?.long].filter(Boolean).join('\n\n');
+  if (!content.trim()) { showToast('재구성할 글이 없습니다', 'error'); return; }
+
+  showLoading(true);
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: `당신은 초등학교 글쓰기 교육 전문가입니다.
+학생이 쓴 글을 "${style}" 형식으로 재구성해 주세요.
+
+규칙:
+1. 학생이 쓴 내용(아이디어, 의견)을 최대한 살려주세요
+2. ${targetGrade}학년 수준에 맞는 어휘와 문장을 사용하세요
+3. 서론(주제 제시) - 본론(근거/설명) - 결론(마무리) 구조로 작성하세요
+4. 각 문단 앞에 [서론], [본론], [결론] 표시를 붙여주세요
+5. 재구성 후 마지막에 "💡 이렇게 바꾼 이유:" 를 붙여 2~3가지 개선 포인트를 간단히 설명해주세요
+6. 전체 길이는 200~350자 내외로 해주세요`,
+        messages: [{ role: 'user', content: `학생(${targetGrade}학년) 원문:\n${content}\n\n위 글을 ${style}으로 재구성해주세요.` }]
+      })
+    });
+    const data = await resp.json();
+    const rewritten = data.content?.[0]?.text || '재구성 실패';
+    document.getElementById('rewrite-text').textContent = rewritten;
+    document.getElementById('rewrite-result').style.display = 'block';
+
+    // Auto-save
+    const idx = submissions.findIndex(s => s.id === currentCommentTarget);
+    if (idx >= 0) { submissions[idx].aiRewrite = rewritten; DB.set('submissions', submissions); }
+
+    showToast('논술 재구성이 완료되었습니다!', 'success');
+  } catch(e) {
+    showToast('재구성 중 오류가 발생했습니다', 'error');
+  }
+  showLoading(false);
+}
+
+function copyRewrite() {
+  const text = document.getElementById('rewrite-text').textContent;
+  navigator.clipboard.writeText(text).then(() => showToast('복사되었습니다!', 'success'));
+}
+
+function applyRewriteToFeedback() {
+  const text = document.getElementById('rewrite-text').textContent;
+  const current = document.getElementById('manual-comment').value;
+  document.getElementById('manual-comment').value = (current ? current + '\n\n' : '') + '[AI 논술 재구성 예시]\n' + text;
+  switchAITab('manual');
+  showToast('재구성 결과가 피드백에 추가되었습니다', 'success');
+}
+
+// ── 기본 AI 피드백 ──
+async function generateBasicAIComment() {
+  const apiKey = getAPIKey();
+  if (!apiKey) { showToast('API 키를 설정에서 먼저 입력해주세요', 'error'); return; }
   const submissions = DB.get('submissions') || [];
   const sub = submissions.find(s => s.id === currentCommentTarget);
   if (!sub) return;
@@ -2862,36 +3506,39 @@ async function generateAIComment() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 500,
-        system: `당신은 초등학교 ${sub.grade}학년 학생의 NIE(신문 활용 교육) 글쓰기를 지도하는 선생님입니다. 학생의 글을 읽고 격려하고 개선점을 제안하는 따뜻하고 친절한 피드백을 200자 이내로 작성해주세요. 초등학생이 이해할 수 있는 쉬운 말로 써주세요.`,
-        messages: [{ role: 'user', content: `학생 이름: ${sub.userName}\n학년: ${sub.grade}학년\n\n작성한 글:\n${content}\n\n위 글에 대한 피드백을 작성해주세요.` }]
+        model: 'claude-sonnet-4-20250514', max_tokens: 500,
+        system: `초등학교 ${sub.grade}학년 NIE 글쓰기 지도 선생님입니다. 학생의 글에 따뜻하고 격려가 되는 피드백을 150~200자로 작성해주세요. 잘한 점과 개선점을 함께 언급해 주세요.`,
+        messages: [{ role: 'user', content: `${sub.userName} (${sub.grade}학년)\n\n${content}` }]
       })
     });
     const data = await resp.json();
-    const comment = data.content?.[0]?.text || '피드백 생성 실패';
-    document.getElementById('ai-comment-text').textContent = comment;
-    document.getElementById('ai-comment-result').style.display = 'block';
-  } catch(e) {
-    showToast('AI 피드백 생성 중 오류가 발생했습니다', 'error');
-  }
+    const comment = data.content?.[0]?.text || '';
+    document.getElementById('ai-saved-feedback').textContent = comment;
+    const idx = submissions.findIndex(s => s.id === currentCommentTarget);
+    if (idx >= 0) { submissions[idx].aiComment = comment; DB.set('submissions', submissions); }
+    showToast('AI 기본 피드백이 생성되었습니다!', 'success');
+  } catch(e) { showToast('생성 중 오류 발생', 'error'); }
   showLoading(false);
 }
+
+// 구버전 호환
+async function generateAIComment() { await generateBasicAIComment(); }
 
 function saveComment() {
   const submissions = DB.get('submissions') || [];
   const idx = submissions.findIndex(s => s.id === currentCommentTarget);
   if (idx < 0) return;
-  submissions[idx].teacherComment = document.getElementById('manual-comment').value;
-  const aiText = document.getElementById('ai-comment-text').textContent;
-  if (aiText && document.getElementById('ai-comment-result').style.display !== 'none') {
-    submissions[idx].aiComment = aiText;
-  }
+  const tc = document.getElementById('manual-comment').value.trim();
+  if (tc) submissions[idx].teacherComment = tc;
   DB.set('submissions', submissions);
   closeModal('modal-ai-comment');
-  loadSubmissions();
-  showToast('피드백이 저장되었습니다', 'success');
+  if (currentDetailUserId) renderDetailSubmissions();
+  else renderStudentSubmissionList();
+  showToast('피드백이 저장되었습니다 ✅', 'success');
 }
+
+// filterSubmissions 구버전 호환 (기존 코드가 참조하는 경우 대비)
+function filterSubmissions() { renderStudentSubmissionList(); }
 
 function printSubmission(subId) {
   const submissions = DB.get('submissions') || [];
